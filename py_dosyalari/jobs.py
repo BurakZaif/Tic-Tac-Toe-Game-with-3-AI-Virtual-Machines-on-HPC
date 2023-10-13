@@ -23,12 +23,12 @@ if rank == 0:
 elif rank == 1:
 
     while not isFinished:
-        print("Player 1 playing ....")
+        print("Player 1 is playing ....")
         comm.send(board, dest=0, tag=0)
         player1m = comm.recv(source=0, tag=1)
         Head.InsertLetter(comp, player1m)
         Head.printBoard(board)
-        print("Player 2 playing ...")
+        print("Player 2 is playing ...")
         comm.send(board, dest=2, tag=2)
         player2m = comm.recv(source=2, tag=3)
         Head.InsertLetter(player, player2m)
