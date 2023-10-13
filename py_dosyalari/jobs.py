@@ -13,14 +13,6 @@ board = {1: " ", 2: " ", 3: " ",
         7: " ", 8: " ", 9: " "}
 
 if rank == 0:
-    if not isFinished:
-        board = comm.recv(source=1, tag=0)
-        move1 = M1.player1Move(board)
-
-    comm.send(move1, dest=1, tag=1)
-    print("Process 0 sent" + move1 + "to process 1")
-
-elif rank == 1:
 
     while not isFinished:
         print("Player 1 is playing ....")
@@ -35,6 +27,14 @@ elif rank == 1:
         Head.printBoard(board)
 
     print("Game Over")
+
+elif rank == 1:
+    if not isFinished:
+        board = comm.recv(source=1, tag=0)
+        move1 = M1.player1Move(board)
+
+    comm.send(move1, dest=1, tag=1)
+    print("Process 0 sent" + move1 + "to process 1")
 
 elif rank == 2:
     if not isFinished:
