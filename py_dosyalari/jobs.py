@@ -16,8 +16,8 @@ if rank == 0:
 
     while not isFinished:
         print("Player 1 is playing ....")
-        comm.send(board, dest=0, tag=0)
-        player1m = comm.recv(source=0, tag=1)
+        comm.send(board, dest=1, tag=0)
+        player1m = comm.recv(source=1, tag=1)
         Head.InsertLetter(comp, player1m)
         Head.printBoard(board)
         print("Player 2 is playing ...")
@@ -30,18 +30,18 @@ if rank == 0:
 
 elif rank == 1:
     if not isFinished:
-        board = comm.recv(source=1, tag=0)
+        board = comm.recv(source=0, tag=0)
         move1 = M1.player1Move(board)
 
-    comm.send(move1, dest=1, tag=1)
+    comm.send(move1, dest=0, tag=1)
     print("Process 0 sent" + move1 + "to process 1")
 
 elif rank == 2:
     if not isFinished:
-        board = comm.recv(source=1, tag=2)
+        board = comm.recv(source=0, tag=2)
         move2 = M2.player2Move(board)
 
-    comm.send(move2, dest=1, tag=3)
+    comm.send(move2, dest=0, tag=3)
     print("Process 2 sent" + move2 + "to process 1")
 
 comm.Barrier()  # Synchronize processes
